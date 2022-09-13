@@ -3,12 +3,12 @@ const posts = [
     {title: "Post Two", body: "This is post two"},
     {title: "Post Three", body: "This is post three"}
 ];
-function listPosts(data) {
-    data.forEach(function(post){
+function listPosts() {
+    posts.forEach(function(post){
         console.log(post.title + ": " + post.body)
     });
 };
-function createPost(post) {
+function createPost(post, callback) {
     return new Promise(function(resolve, reject){
         setTimeout(function(){
             posts.push(post);
@@ -16,12 +16,12 @@ function createPost(post) {
             if (!error) {
                 resolve();
                 console.log("Post Created", post)
-                console.log(posts.forEach(function(post){
-                    console.log(post.title + ": " + post.body)}))
+                callback();
             } else {
                 reject("Error: Something went wrong");
             }
         }, 2000);
+       
     });
 }
-createPost({title: "Post Four", body: "This is post four"}, listPosts(posts))
+createPost({title: "Post Four", body: "This is post four"}, listPosts)
